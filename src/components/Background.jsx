@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDeviceContext } from '../context/DeviceDetection';
-import '../styles/background.css';
+import '../styles/Background.css';
 
 const Background = ({ children }) => {
   const { deviceType } = useDeviceContext();
