@@ -4,12 +4,20 @@
   --text-color: #333; /* Dark grey for text */
   --accent-color: #ff9800; /* Orange for highlights */
 }
+* {
+  box-sizing: border-box;
+}
 
 /* Main container */
 html, body, #root {
   height: 100vh; /* Full viewport height */
   width: 100vw; /* Full viewport width */
   margin: 0; /* Removes default margins */
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-color);
+  padding: 0;
 }
 
 
@@ -91,14 +99,12 @@ html, body, #root {
   
   /* Content area */
   .content-desktop {
-    padding: 15px; /* Adjust for navbar height */
-    padding-left: 55px;
-    padding-right: 15px;
-    flex: 1;
+    box-sizing: border-box; /* Includes padding in width/height */
   }
 
   .content-mobile {
-    padding: 20px 15px; /* Adjust for navbar height */
+     /* Adjust for navbar height */
+    padding-top: 60px;
     flex: 1;
   }
   
@@ -121,7 +127,7 @@ html, body, #root {
     background-color: var(--secondary-color); /* Matches your color scheme */
     padding: 20px; /* Adds spacing inside the sidebar */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Adds a shadow */
-    z-index: 999; /* Keeps the sidebar above other elements */
+   /* Keeps the sidebar above other elements */
     display: flex; /* Flex container for items */
     flex-direction: column; /* Stacks items vertically */
   }
