@@ -24,6 +24,7 @@ html, body, #root {
 .background-mobile{
     display: flex;
     flex-direction: column;
+    height: 100vh;
     height: 100dvh;
   }
 
@@ -106,6 +107,7 @@ html, body, #root {
      /* Adjust for snavbar height */
     padding-top: 60px;
     flex: 1;
+    height: 100dvh;
   }
   
 
