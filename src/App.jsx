@@ -1,17 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from './routes/Routes';
-
-import { DeviceProvider } from './context/DeviceDetection';
+import AppRoutes from './routes/Routes'; // Use the renamed Routes component
 
 const App = () => {
   return (
-      <DeviceProvider>
-        <Router>
-          <Routes />
-        </Router>
-      </DeviceProvider>
-  
+    <Router>
+      <AppRoutes />
+    </Router>
   );
 };
 

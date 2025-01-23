@@ -1,181 +1,118 @@
 :root {
-  --primary-color: #1a73e8; /* Bright blue */
-  --secondary-color: #f5f5f5; /* Light grey */
-  --text-color: #333; /* Dark grey for text */
-  --accent-color: #ff9800; /* Orange for highlights */
+  --primary-color: #1a73e8;
+  --secondary-color: #f5f5f5;
+  --text-color: #333;
+  --accent-color: #ff9800;
 }
+
 * {
   box-sizing: border-box;
 }
 
 /* Main container */
 html, body, #root {
-  height: 100dvh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
-  margin: 0; /* Removes default margins */
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
-  line-height: 1.6;
   color: var(--text-color);
-  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
+.background {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
 
-.background-mobile{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    height: 100dvh;
-  }
-
-.background-desktop{
-    display: flex;
-    flex-direction: column;
-    height: 100dvh;
-  }
-  
-  /* Navbar */
-  .navbar {
-    display: flex; /* Makes the navbar a flex container */
-    justify-content: space-between; /* Align button to the left, title to the right */
-    align-items: center; /* Vertically center items */
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 60px;
-    background-color: var(--primary-color);
-    color: white;
-   
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  
-     /* Add horizontal padding */
-  }
-
-
-  
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 .navbar-title {
-  position: absolute; /* Ensures the title is centered */
+  position: absolute;
   left: 50%;
-  transform: translateX(-50%); /* Centers the title horizontally */
+  transform: translateX(-50%);
   text-align: center;
 }
+
 .navbar h1 {
   font-size: 24px;
   font-family: 'Poppins', sans-serif;
 }
 
-.navbar ul {
+.sidebar {
+  position: fixed;
+  top: 60px; /* Below navbar */
+  left: 0;
+  height: calc(100% - 60px); /* Full height minus navbar */
+  width: 250px;
+  background-color: var(--secondary-color);
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   display: flex;
+  flex-direction: column;
+}
+
+.sidebar ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.navbar ul li {
-  margin: 0 15px;
+.sidebar ul li {
+  margin: 10px 0;
 }
 
-.navbar ul li a {
+.sidebar ul li a {
   text-decoration: none;
-  color: white;
-  font-size: 16px;
-  transition: color 0.3s;
+  color: var(--text-color);
 }
 
-.navbar ul li a:hover {
-  color: var(--accent-color); /* Highlight on hover */
+.content-desktop {
+  flex: 1;
+  margin-left: 250px; /* Leave space for sidebar */
+  padding-top: 60px; /* Below navbar */
+  height: calc(100vh - 60px);
+  overflow-y: auto;
 }
 
+.content-mobile {
+  flex: 1;
+  padding-top: 60px; /* Below navbar */
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+}
 
-.sidebar-toggle {
-    background-color: #ffffff00;
-    color: rgb(255, 255, 255);
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    padding-left: 20px;
-  }
-  
-  
-
-  
-  /* Content area */
-  .content-desktop {
-    box-sizing: border-box; /* Includes padding in width/height */
-  }
-
-  .content-mobile {
-     /* Adjust for snavbar height */
-    padding-top: 60px;
-    flex: 1;
-    height: 100dvh;
-  }
-  
-
-
-
-  /* Adjust for sidebar on desktop */
-  @media (min-width: 1024px) {
-    .content {
-      margin-left: 250px; /* Space for sidebar */
-    }
-  }
-  
+/* Responsive Design */
+@media (max-width: 1024px) {
   .sidebar {
-    position: fixed; /* Keeps the sidebar fixed to the left */
-    top: 60px; /* Starts below the navbar */
-    left: 0; /* Aligns it to the left edge */
-    height: calc(100% - 60px); /* Full height minus navbar */
-    width: 250px; /* Sidebar width */
-    background-color: var(--secondary-color); /* Matches your color scheme */
-    padding: 20px; /* Adds spacing inside the sidebar */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Adds a shadow */
-   /* Keeps the sidebar above other elements */
-    display: flex; /* Flex container for items */
-    flex-direction: column; /* Stacks items vertically */
+    display: none; /* Hide sidebar by default for smaller screens */
   }
-  
-  .sidebar ul {
-    list-style: none; /* Removes bullets */
-    margin: 0;
-    padding: 0;
+
+  .sidebar.open {
+    display: block; /* Show sidebar when toggled */
+    position: fixed;
+    top: 60px;
+    left: 0;
+    height: calc(100% - 60px);
+    width: 200px; /* Slightly smaller sidebar for mobile */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
   }
-  
-  .sidebar ul li {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+
+  .content-desktop {
+    margin-left: 0; /* No sidebar on mobile */
   }
-  
-  .sidebar ul li:hover {
-    background-color: var(--primary-color);
-  }
-  
-  .sidebar ul li a {
-    margin-left: 10px;
-    color: var(--text-color);
-    font-size: 16px;
-  }
-  
-  .sidebar ul li a:hover {
-    color: white;
-  }
-  /* Mobile: Hide sidebar by default */
-  @media (max-width: 1024px) {
-    .sidebar {
-      display: none; /* Hidden on mobile by default */
-    }
-  
-    .sidebar.open {
-      display: block; /* Shows sidebar when toggled */
-      position: fixed;
-      top: 60px;
-      left: 0;
-      height: calc(100% - 60px);
-      width: 200px; /* Slightly narrower for mobile */
-      background-color: var(--secondary-color);
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    }
-  }
+}

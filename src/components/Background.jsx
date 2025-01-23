@@ -1,33 +1,49 @@
-import React, { useState } from 'react';
-import { useDeviceContext } from '../context/DeviceDetection';
+import React, { useState, useEffect } from 'react';
 import '../styles/Background.css';
 
 const Background = ({ children }) => {
-  const { deviceType } = useDeviceContext();
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024);
+  const [isSidebarOpen, setSidebarOpen] = useState(!isSmallScreen);
 
-  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
+  useEffect(() => {
+    const handleResize = () => {
+      const smallScreen = window.innerWidth < 1024;
+      setIsSmallScreen(smallScreen);
+
+      // Automatically close sidebar on small screens
+      if (smallScreen && isSidebarOpen) setSidebarOpen(false);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isSidebarOpen]);
+
+  const toggleSidebar = () => {
+    setSidebarOpen((prev) => !prev);
+  };
 
   return (
-    <div className={`background-${deviceType}`}>
+    <div className="background">
+      {/* Navbar */}
       <div className="navbar">
-        {deviceType !== 'desktop' && (<button onClick={toggleSidebar} className="sidebar-toggle">☰</button>)}
-        <div className='navbar-title'><h1>Killian's Club</h1></div>
+        {isSmallScreen && (
+          <button onClick={toggleSidebar} className="sidebar-toggle">☰</button>
+        )}
+        <div className="navbar-title">
+          <h1>Killian's Club</h1>
+        </div>
       </div>
 
-      {/* Sidebar for Desktop or Dropdown for Mobile/Tablet */}
-      {(deviceType === 'desktop' || isSidebarOpen) && (
-        <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/networking">Networking</a></li>
-            <li><a href="/about">About</a></li>
-          </ul>
-        </div>
-      )}
+      {/* Sidebar */}
+      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/networking">Networking</a></li>
+        </ul>
+      </div>
 
       {/* Main Content */}
-      <div className={`content ${deviceType === 'desktop' ? 'content-desktop' : 'content-mobile'}`}>
+      <div className={`content ${isSmallScreen ? 'content-mobile' : 'content-desktop'}`}>
         {children}
       </div>
     </div>
