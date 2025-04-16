@@ -78,10 +78,26 @@ const Background = ({ children }) => {
               </li>
               <li>
                 <a
-                  href="/networking"
+                  href="/ai"
                   className="block px-4 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                 >
-                  Networking
+                  AI Solutions
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/data-ai-strategy"
+                  className="block px-4 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                >
+                  Data & AI Strategy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/infrastructure"
+                  className="block px-4 py-2 text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
+                >
+                  Infrastructure
                 </a>
               </li>
             </ul>
